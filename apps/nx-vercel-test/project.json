@@ -1,6 +1,88 @@
 {
-  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
+  "root": "apps/nx-vercel-test",
   "sourceRoot": "apps/nx-vercel-test/src",
   "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/nx-vercel-test",
+        "index": "apps/nx-vercel-test/src/public/index.html",
+        "baseHref": "/",
+        "sourceMap": false,
+        "main": "apps/nx-vercel-test/src/index.tsx",
+        "polyfills": "apps/nx-vercel-test/src/polyfills.ts",
+        "tsConfig": "apps/nx-vercel-test/tsconfig.app.json",
+        "assets": [
+          "apps/nx-vercel-test/src/public",
+          "apps/nx-vercel-test/src/assets"
+        ],
+        "styles": ["apps/nx-vercel-test/src/index.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/nx-vercel-test/src/environments/environment.ts",
+              "with": "apps/nx-vercel-test/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        },
+        "development": {
+          "fileReplacements": [
+            {
+              "replace": "apps/nx-vercel-test/src/environments/environment.ts",
+              "with": "apps/nx-vercel-test/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": false,
+          "outputHashing": "all",
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "nx-vercel-test:build:development",
+        "hmr": true,
+        "port": 3000
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "nx-vercel-test:build:production",
+          "hmr": false,
+          "sourceMap": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/nx-vercel-test/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/nx-vercel-test"],
+      "options": {
+        "jestConfig": "apps/nx-vercel-test/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
   "tags": []
 }
