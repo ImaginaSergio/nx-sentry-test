@@ -12,7 +12,9 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    ".env.local": "*",
+    ".env": "*"
   },
   "tasksRunnerOptions": {
     "default": {
